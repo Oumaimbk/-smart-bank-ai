@@ -1,0 +1,61 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# ── Environment / secrets ─────────────────────────────────
+.env
+*.env.local
+
+# ── Django ────────────────────────────────────────────────
+*.log
+db.sqlite3
+media/
+
+# ── ML models (binary, large) ─────────────────────────────
+backend/models_store/*.pkl
+backend/models_store/*.joblib
+backend/models_store/*.png
+!backend/models_store/.gitkeep
+
+# ── Data files (large CSVs) ───────────────────────────────
+data/raw/*.csv
+data/processed/*.csv
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ── Node / React ──────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# ── Jupyter ───────────────────────────────────────────────
+.ipynb_checkpoints/
+notebooks/__pycache__/
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ── Temp / debug files ────────────────────────────────────
+*.json
+!package.json
+!package-lock.json
+
+# ── Docker volumes ────────────────────────────────────────
+postgres_data/
