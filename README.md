@@ -37,7 +37,7 @@
 - Des **recommandations budgétaires** personnalisées, enrichies par les données d'anomalies et une explication détaillée de chaque conseil.
 - Un tableau de bord **AI Insights** avec métriques d'évaluation des modèles (MAE, RMSE, R², accuracy, F1) et importance des variables.
 
-Le dataset utilisé est un ensemble de **46 702 transactions bancaires marocaines synthétiques**, couvrant 11 catégories de dépenses sur plusieurs années.
+Le dataset d'entraînement est un ensemble de **57 382 transactions** (46 702 originales + 10 680 nouvelles) couvrant **14 catégories** dont des marchands internationaux (H&M, Nike, Zara, Amazon, AliExpress, Jumia, Fnac, Sephora…).
 
 ---
 
@@ -53,6 +53,7 @@ Le dataset utilisé est un ensemble de **46 702 transactions bancaires marocaine
 | Recommandations enrichies | Basées sur prévisions + anomalies par catégorie + fort volume, avec champ `reason` explicatif |
 | Tableau de bord | KPIs, évolution mensuelle, top marchands, dépenses par catégorie |
 | **AI Insights** | Métriques d'évaluation (MAE, RMSE, R², accuracy, F1), importance des variables (bar chart), explication des méthodes |
+| **Suppression de batch** | Corbeille rouge dans l'historique des imports — supprime toutes les transactions liées |
 | Multi-utilisateurs | Chaque utilisateur voit uniquement ses propres données |
 | API REST | Tous les endpoints protégés par JWT, pagination intégrée |
 
@@ -439,7 +440,7 @@ docker exec pe-backend-1 python manage.py createsuperuser
 ```bash
 cd backend
 python -m pytest tests/ -v
-# → 58 passed
+# → 63 passed
 ```
 
 ---
@@ -480,6 +481,7 @@ python -m pytest tests/ -v
 | `POST` | `/api/transactions/upload/` | Import CSV (multipart, champ `file`) | Oui |
 | `GET` | `/api/transactions/` | Liste paginée (filtres: direction, category, search) | Oui |
 | `GET` | `/api/transactions/batches/` | Historique des imports | Oui |
+| `DELETE` | `/api/transactions/batches/<id>/delete/` | **[NEW]** Supprimer un import et toutes ses transactions | Oui |
 
 ### Analytics
 
@@ -537,7 +539,7 @@ python -m pytest tests/ -v
 
 ## 15. Tests
 
-**58 tests** au total, tous exécutés avec SQLite en mémoire (pas de Docker nécessaire).
+**63 tests** au total, tous exécutés avec SQLite en mémoire (pas de Docker nécessaire).
 
 ```bash
 cd backend
@@ -547,7 +549,7 @@ python -m pytest tests/ -v
 | Fichier | Tests | Ce qui est couvert |
 |---|---|---|
 | `test_auth.py` | 5 | Register, login, me, rejet sans token |
-| `test_transactions.py` | 10 | Upload, déduplication, filtres, isolation utilisateurs |
+| `test_transactions.py` | 15 | Upload, déduplication, filtres, isolation utilisateurs, suppression de batch |
 | `test_analytics.py` | 8 | KPIs, catégories, évolution, auth requise |
 | `test_anomalies.py` | 7 | Liste, summary, filtre, nouveaux types, auth |
 | `test_recommendations.py` | 6 | Recommandations + prévisions + champ reason |
