@@ -20,13 +20,12 @@ env/
 db.sqlite3
 media/
 
-# ── ML models (binary, large) ─────────────────────────────
-backend/models_store/*.pkl
+# ── ML models — kept in git so Docker works on fresh clone ──
 backend/models_store/*.joblib
 backend/models_store/*.png
-!backend/models_store/.gitkeep
 
 # ── Data files (large CSVs) ───────────────────────────────
+# data/reference/ is intentionally tracked (demo files for graders)
 data/raw/*.csv
 data/processed/*.csv
 !data/raw/.gitkeep

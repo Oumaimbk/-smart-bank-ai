@@ -22,7 +22,6 @@ services:
     volumes:
       - ./backend:/app
       - ./data:/app/data
-      - models_store:/app/models_store
     ports:
       - "8000:8000"
     env_file:
@@ -51,5 +50,4 @@ services:
 
 volumes:
   postgres_data:
-  models_store:
   frontend_node_modules:

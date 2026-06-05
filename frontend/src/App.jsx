@@ -22,6 +22,11 @@ function AppRoutes() {
           <Layout><DashboardPage /></Layout>
         </ProtectedRoute>
       }/>
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <Layout><DashboardPage /></Layout>
+        </ProtectedRoute>
+      }/>
       <Route path="/upload" element={
         <ProtectedRoute>
           <Layout><UploadPage /></Layout>
